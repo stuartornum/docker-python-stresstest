@@ -1,9 +1,14 @@
 FROM python:2-slim
 
-ADD . /srv
+RUN apt-get update && apt-get install nginx -y && apt-get clean all
+
+ADD ./requirements.txt /requirements.txt
 RUN /usr/local/bin/pip install -r /srv/requirements.txt
+
+ADD ./nginx.conf /etc/nginx/nginx.conf
+ADD . /srv
 
 EXPOSE 8000
 WORKDIR /srv
-ENTRYPOINT ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "hello:app"]
+ENTRYPOINT ["/srv/run.sh"]
 
