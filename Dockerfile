@@ -8,7 +8,7 @@ RUN /usr/local/bin/pip install -r /requirements.txt
 ADD ./nginx.conf /etc/nginx/nginx.conf
 ADD . /srv
 
-EXPOSE 8000
+EXPOSE 8080
 WORKDIR /srv
 ENTRYPOINT ["/srv/run.sh"]
 
